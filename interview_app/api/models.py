@@ -11,10 +11,17 @@ class Author(models.Model):
   def __str__(self):
     return self.name
 
+class Matter(models.Model):
+  title = models.CharField(max_length=200)
+  description = models.CharField(max_length=300)  
+  added_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+  created_date = models.DateTimeField(default=timezone.now)
+
 class Quiz(models.Model):
   title = models.CharField(max_length=200)
   description = models.CharField(max_length=300)  
   author = models.ForeignKey(Author, on_delete=models.CASCADE)
+  matter = models.ForeignKey(Matter, on_delete = models.CASCADE)
   added_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
   created_date = models.DateTimeField(default=timezone.now)
 
